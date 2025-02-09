@@ -9,9 +9,9 @@ export class TimeService {
       throw new Error("Las zonas horarias son obligatorias.");
     }
 
-    const now = DateTime.now().setZone(zonaOrigen);
-    const targetNow = now.setZone(zonaDestino);
-    const diferencia_horas = targetNow.offset / 60; // Offset en horas
+    const timeOrigen = DateTime.fromFormat(hora || "00:00", "HH:mm", { zone: zonaOrigen });
+    const timeDestino = timeOrigen.setZone(zonaDestino);
+    const diferencia_horas = (timeDestino.offset - timeOrigen.offset) / 60;
 
     if (hora) {
       const timeOrigen = DateTime.fromFormat(hora, "HH:mm", { zone: zonaOrigen });
